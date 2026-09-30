@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Media Kiosk</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+    <main class="kiosk">
+        <h1>Media Kiosk</h1>
+
+        {% if media_root_available %}
+            <p class="status success">Media storage connected</p>
+        {% else %}
+            <p class="status error">Media storage unavailable</p>
+        {% endif %}
+
+        <section class="media-grid">
+            <div class="media-card">
+                <h2>Pictures</h2>
+
+                {% if pictures_available %}
+                    <p class="status success">Available</p>
+                    <p class="count">{{ picture_count }}</p>
+                    <p>supported images</p>
+                {% else %}
+                    <p class="status error">Unavailable</p>
+                {% endif %}
+            </div>
+
+            <div class="media-card">
+                <h2>Videos</h2>
+
+                {% if videos_available %}
+                    <p class="status success">Available</p>
+                    <p class="count">{{ video_count }}</p>
+                    <p>supported videos</p>
+                {% else %}
+                    <p class="status error">Unavailable</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
