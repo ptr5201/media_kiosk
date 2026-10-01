@@ -10,6 +10,8 @@ from config import (
 
 app = Flask(__name__)
 
+_picture_files_cache = None
+
 
 def count_media(directory, extensions):
     if not directory.is_dir():
@@ -25,10 +27,15 @@ def count_media(directory, extensions):
 
 
 def get_picture_files():
+    global _picture_files_cache
+
+    if _picture_files_cache is not None:
+        return _picture_files_cache
+
     if not PICTURES_ROOT.is_dir():
         return []
 
-    return sorted(
+    _picture_files_cache = sorted(
         (
             path
             for path in PICTURES_ROOT.rglob("*")
@@ -36,6 +43,8 @@ def get_picture_files():
         ),
         key=lambda path: str(path.relative_to(PICTURES_ROOT)).casefold(),
     )
+
+    return _picture_files_cache
 
 
 @app.route("/")
