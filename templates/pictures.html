@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Pictures - Media Kiosk</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+    <main class="photo-viewer">
+        {% if picture_available %}
+            <div class="photo-area">
+                <img
+                    src="{{ url_for('picture_image', index=picture_index) }}"
+                    alt="Photo {{ picture_index + 1 }}"
+                >
+            </div>
+
+            <div class="photo-controls">
+                <a
+                    class="photo-button"
+                    href="{{ url_for(
+                        'pictures',
+                        index=(picture_index - 1) % picture_count
+                    ) }}"
+                >
+                    ← Previous
+                </a>
+
+                <a class="photo-button" href="{{ url_for('index') }}">
+                    Back
+                </a>
+
+                <a
+                    class="photo-button"
+                    href="{{ url_for(
+                        'pictures',
+                        index=(picture_index + 1) % picture_count
+                    ) }}"
+                >
+                    Next →
+                </a>
+            </div>
+
+            <p class="photo-position">
+                Photo {{ picture_index + 1 }} of {{ picture_count }}
+            </p>
+        {% else %}
+            <div class="photo-message">
+                <h1>Pictures</h1>
+                <p class="status error">No supported pictures available.</p>
+
+                <a class="photo-button" href="{{ url_for('index') }}">
+                    ← Back
+                </a>
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>

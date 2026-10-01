@@ -24,17 +24,19 @@
         {% endif %}
 
         <section class="media-grid">
-            <div class="media-card">
-                <h2>Pictures</h2>
-
-                {% if pictures_available %}
+            {% if pictures_available %}
+                <a class="media-card media-card-link" href="{{ url_for('pictures') }}">
+                    <h2>Pictures</h2>
                     <p class="status success">Available</p>
                     <p class="count">{{ picture_count }}</p>
                     <p>supported images</p>
-                {% else %}
+                </a>
+            {% else %}
+                <div class="media-card">
+                    <h2>Pictures</h2>
                     <p class="status error">Unavailable</p>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
 
             <div class="media-card">
                 <h2>Videos</h2>
